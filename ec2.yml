@@ -1,0 +1,22 @@
+- hosts: localhost
+  vars_files:
+    - e.yml
+  tasks:
+   - ec2:
+      key_name: "shivam"
+      instance_type: "t2.micro"
+      image: "ami-0ebc1ac48dfd14136"
+      wait: yes
+      group_id: "sg-03493268cae29ec4f"
+      count: 1
+      vpc_subnet_id: "subnet-ab3995d0"
+      assign_public_ip: yes
+      region: "ap-south-1"
+      state: present
+      aws_access_key: "{{Access_key_ID}}"
+      aws_secret_key: "{{Secret_access_key}}"
+   - copy:
+       content: "{{describe.instance[0].public_ip}}
+       dest: /etc/myhosts.txt 
+ 
+    
