@@ -1,0 +1,13 @@
+- hosts: ec2-instance
+  become: True
+  become_user: root
+  vars:
+     ansible_user: admin
+  tasks:
+    - package:
+        name: "httpd"
+        state: present
+    - copy:
+        src: index.html
+        dest: /var/www/html/
+    - command: "systemctl start httpd"
